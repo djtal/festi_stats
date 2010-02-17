@@ -3,21 +3,22 @@
 ----------------------------------------------------------
 Resume
 - Jeux principaux connus: 
-<%= @theme.games.main.know.map(&:name) * "\n" %>
-	
-- Jeux principaux pas connus: 
-<%= @theme.games.main.unknow.map(&:name). * "\n" %>
+<%= @know.map(&:name).each_slice(5).map{|slice| slice * ", "} * "\n" %>
+		
+- Jeux principaux pas connus:  
+<%= @unknow.map(&:name). * "\n" %>
 
 - Autre jeux : 
-<%= @theme.games.secondary.map(&:name) * "\n" %>
+<%= @theme.games.secondary.map{|game| "#{game.name}(#{game.played_count && game.played_count > 0 ? game.played_count : "-" })"}.each_slice(5).map{|slice| slice * ", "} * "\n" %>
 	
 	
 ----------------------------------------------------------
-Ludotiens par jeux :
+Ludotiens par jeux(seulement les principaux) :
 
 <% @theme.games.main.each do |game| %>
-	<%= game.name %> :
-		<% game.members.each do |member| %>
+	<%= game.name %> <%= "(#{game.played_count} parties)" if game.played_count && game.played_count > 0 %> :
+		<% game.master_members.each do |member| %>
 			- <%= member.name %>
 		<% end %>
 <% end %>
+

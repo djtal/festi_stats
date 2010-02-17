@@ -50,4 +50,15 @@ namespace :export do
 		require "exporter"
 		Exporter.themes
 	end
+	
+	desc "export some stats about gathered data"
+	task(:stats => "db:environment") do
+	  require "exporter"
+	  Exporter.stats
+	end
+	
+	task(:all) do
+	  Rake::Task['export:stats'].invoke
+	  Rake::Task['export:themes'].invoke
+	end
 end

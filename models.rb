@@ -3,6 +3,9 @@ class Game < ActiveRecord::Base
 	has_one :theme, :through => :theme_game
 	has_many :survey_results
 	has_many :members, :through => :survey_results
+	has_many :master_members, :through => :survey_results, :source => :member, 
+	          :conditions => {:survey_results => {:level => 2}},
+	          :readonly => true 
 	
 	
 	named_scope :know, :include => :survey_results, :conditions => {:survey_results => {:level => 2}}
@@ -11,6 +14,8 @@ class Game < ActiveRecord::Base
 	
 	named_scope :main, :include => :theme_game, :conditions => {:theme_games => {:main => true}}
 	named_scope :secondary, :include => :theme_game, :conditions => {:theme_games => {:main => false}}
+	
+	named_scope :played, :conditions => ["played_count > ?", 0]
 end
  
 class Member < ActiveRecord::Base
