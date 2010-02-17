@@ -1,0 +1,23 @@
+<%= @theme.name %>
+
+----------------------------------------------------------
+Resume
+- Jeux principaux connus: 
+<%= @theme.games.main.know.map(&:name) * "\n" %>
+	
+- Jeux principaux pas connus: 
+<%= @theme.games.main.unknow.map(&:name). * "\n" %>
+
+- Autre jeux : 
+<%= @theme.games.secondary.map(&:name) * "\n" %>
+	
+	
+----------------------------------------------------------
+Ludotiens par jeux :
+
+<% @theme.games.main.each do |game| %>
+	<%= game.name %> :
+		<% game.members.each do |member| %>
+			- <%= member.name %>
+		<% end %>
+<% end %>

@@ -3,7 +3,7 @@ class BaseData < ActiveRecord::Migration
 		create_table :games do |t|
 			t.string  :name
 			t.integer :played_count
-			t.belong_to :theme
+			t.belongs_to :theme
 		end
 		
 		create_table :themes do |t|

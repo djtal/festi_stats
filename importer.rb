@@ -13,11 +13,9 @@ class Importer
 
 	def self.import_base
 		CSV::Reader.parse(File.open('import/base.csv', 'r'), ";") do |row|
-			theme = Theme.find(:first, :conditions => {:name => row[0]})
-			theme = Theme.create(:name => row[0]) if !theme
+			theme = Theme.find_or_create_by_name(row[0])
 			game = Game.create(:name => row[1])
-			theme.games << game
-			theme.save
+			theme.theme_games.create(:main => /^oui/i.match(row[2]) != nil, :game => game)
 		end
 	end
 	
