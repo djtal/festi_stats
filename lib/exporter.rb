@@ -1,7 +1,22 @@
 require "erubis"
 
 class Exporter
+  class UnknowReport < RuntimeError; end
   
+  
+  def initialize(template_path)
+    @template_path = template_path || "../template"
+  end
+  
+  
+  def method_missing(symbol)
+      meth = self.extract_method(symbol)
+      tpl = self.extract_template_for(mth)
+      new_meth = compile_method(meth, tpl)
+      self.send(symbol)
+  end
+	
+	
 	def self.themes
 		tpl = Erubis::Eruby.new(File.read("template/theme.erb"))
 		Theme.find(:all).each do |theme|
@@ -28,6 +43,24 @@ class Exporter
 			file << tpl.evaluate(ctx)
 		end
 	end
-
+	
+  private
+  
+  def find_template
+    
+  end
+  
+  #extract the method in charge of fetching the data for the report
+  #
+  # only accept meth starting with render_*
+  def extract_method(name)
+    raise UnknowReport unless name.start_with?("render_")
+    
+  end
+  
+  def compile_method
+    
+  end
+  
   
 end
