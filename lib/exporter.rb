@@ -1,5 +1,4 @@
 require "erubis"
-require "models"
 
 class Exporter
   

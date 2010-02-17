@@ -1,6 +1,8 @@
 require "rubygems"
 require "activerecord"
-require "models"
+require "lib/models"
+require "lib/importer"
+require "lib/exporter"
 
 class FestiStats
   def self.connect

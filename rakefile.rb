@@ -32,14 +32,12 @@ end
 namespace :import do
 	desc "import"
 	task(:base => "db:environment") do
-		require "importer"
 		Importer.flush
 		Importer.import_base
 		Importer.import_played
 	end
 	
 	task(:survey => "db:environment") do
-		require "importer"
 		Importer.import_survey_results
 	end
 end
@@ -47,13 +45,11 @@ end
 namespace :export do
 	desc "export one card per theme"
 	task(:themes => "db:environment") do
-		require "exporter"
 		Exporter.themes
 	end
 	
 	desc "export some stats about gathered data"
 	task(:stats => "db:environment") do
-	  require "exporter"
 	  Exporter.stats
 	end
 	

@@ -1,4 +1,3 @@
-require "models"
 require "csv"
 require "logger"
 require "roo"
@@ -42,7 +41,6 @@ class Importer
 					if (game)
 						member.survey_results.create(:game => game, :level => excel.cell(line, "B"))
 					end
-				
 				end
 			end
 
