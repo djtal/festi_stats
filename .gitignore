@@ -1,2 +1,5 @@
 db/*sqlite3
+db/*sqlite
 import/*
+export/*
+log/*
